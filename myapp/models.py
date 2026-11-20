@@ -1,3 +1,28 @@
 from django.db import models
 
 # Create models here.
+class Contact(models.Model):
+    full_name = models.CharField(max_length=100)
+    email = models.EmailField()
+    subject = models.CharField(max_length=200)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+
+
+    def _str_(self):
+        return self.full_name
+
+class Employee(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField()
+    phone_number = models.CharField(max_length=20)
+    position = models.CharField(max_length=100)
+    department = models.CharField(max_length=100)
+    hire_date = models.DateField()
+    salary = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def _str_(self):
+        return f"{self.first_name} {self.last_name}"
+
+    

@@ -82,11 +82,20 @@
             text-align: center;
             margin-top: 15px;
         }
+
+        .navlink {
+            display: flex;
+            text-align: left;
+        }
     </style>
 </head>
 
 <body>
-
+    <nav id="navlink">
+        <a href="{% url 'contact' %}">Contact Us</a>
+        <a href="{% url 'employee' %}">Add Employee</a>
+    </nav>
+   
 <div class="container">
 
     <h2>Create Account</h2>
