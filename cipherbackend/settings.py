@@ -1,7 +1,9 @@
+import os
 from pathlib import Path
-
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env")
 
 SECRET_KEY = "django-insecure-change-this-before-deploying"
 DEBUG = True
@@ -47,10 +49,22 @@ TEMPLATES = [
 WSGI_APPLICATION = "cipherbackend.wsgi.application"
 ASGI_APPLICATION = "cipherbackend.asgi.application"
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.getenv("DB_NAME"),
+        'USER': os.getenv("DB_USER"),
+        'PASSWORD': os.getenv("DB_PASSWORD"),
+        'HOST': os.getenv("DB_HOST", "127.0.0.1"), # Or an IP address if hosted on remotely
+        'PORT': os.getenv("DB_PORT", "3307"),     # Default MYSQL port
+        'OPTIONS': {"charset": "utf8mb4",},
     }
 }
 

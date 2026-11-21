@@ -36,31 +36,14 @@ def contact(request):
         subject = request.POST.get('subject')
         message = request.POST.get('message')
 
-    if password != confirm_password:
-        messages.error(request, "Passwords do not match.")
-        return redirect('home')
-    
-    elif User.objects.filter(username=username).exists():
-        messages.error(request, "Username already exists.")
-        return redirect('home')
-    elif User.objects.filter(email=email).exists():
-        messages.error(request, "Email already exists.")
-        return redirect('home')
-    else:
-        contact = Contact.objects.contact_us(
-                    full_name=full_name,
-                    email = email, 
-                    subject=subject,
-                    message=message 
-    )
-        contact.save()
+        Contact.objects.create(
+            full_name=full_name,
+            email=email,
+            subject=subject,
+            message=message
+        )
+        # contact.save()
         messages.success(request, "Your message has been sent successfully!")
-        return redirect('contact')
-    
-
-        
-        
-
         return redirect('contact')
 
     return render(request, 'contact.html')
